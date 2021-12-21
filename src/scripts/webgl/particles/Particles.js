@@ -170,9 +170,9 @@ export default class Particles {
 
 	show(time = 1.0) {
 		// reset
-		TweenLite.fromTo(this.object3D.material.uniforms.uSize, time, { value: 0.5 }, { value: 1.5 });
-		TweenLite.to(this.object3D.material.uniforms.uRandom, time, { value: 2.0 });
-		TweenLite.fromTo(this.object3D.material.uniforms.uDepth, time * 1.5, { value: 40.0 }, { value: 4.0 });
+		TweenLite.fromTo(this.object3D.material.uniforms.uSize, time, { value: 0.1 }, { value: 1.5 });
+		TweenLite.to(this.object3D.material.uniforms.uRandom, time, { value: 1.0 });
+		TweenLite.fromTo(this.object3D.material.uniforms.uDepth, time * 1.5, { value: 200.0 }, { value: 4.0 });
 
 		this.addListeners();
 	}

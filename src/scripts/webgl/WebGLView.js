@@ -13,10 +13,8 @@ export default class WebGLView {
 
 		this.samples = [
 			'images/sample-01.png',
-			'images/sample-02.png',
 			'images/sample-03.png',
-			'images/sample-04.png',
-			'images/sample-05.png',
+			'images/sample-05.png'
 		];
 
 		this.initThree();
@@ -58,7 +56,7 @@ export default class WebGLView {
 	update() {
 		const delta = this.clock.getDelta();
 
-		if (this.particles) this.particles.update(delta);
+		if (this.particles) this.particles.update(delta * 2);
 	}
 
 	draw() {
