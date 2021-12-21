@@ -56,7 +56,7 @@ export default class WebGLView {
 	update() {
 		const delta = this.clock.getDelta();
 
-		if (this.particles) this.particles.update(delta * 2);
+		if (this.particles) this.particles.update(delta * 0.2);
 	}
 
 	draw() {

@@ -14,9 +14,9 @@ export default class GUIView {
 		this.touchRadius = 0.15;
 
 		this.range = [0, 1];
-		this.rangeRandom = [1, 50];
+		this.rangeRandom = [1, 100];
 		this.rangeSize = [0, 3];
-		this.rangeDepth = [1, 100];
+		this.rangeDepth = [1, 200];
 		this.rangeRadius = [0, 0.5];
 
 		this.initControlKit();
