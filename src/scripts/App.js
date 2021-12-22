@@ -70,6 +70,6 @@ export default class App {
 	}
 
 	click(e) {
-		this.webgl.next();
+		// this.webgl.next();
 	}
 }

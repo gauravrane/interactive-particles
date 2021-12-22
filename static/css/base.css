@@ -33,11 +33,28 @@ a:focus {
 	outline: none;
 }
 
+.text1
+{
+	position: absolute;
+	pointer-events: none;
+	cursor: pointer;
+	top : 30vh;
+	margin-left: 10vw;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-khtml-user-select: none; /* Konqueror HTML */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
 .frame {
 	padding: 3rem 5vw;
 	text-align: center;
 	position: relative;
 	z-index: 1000;
+	pointer-events: none; 
+	cursor: pointer;
 }
 
 .frame__title {
@@ -114,7 +131,7 @@ a:focus {
 		justify-self: end;
 	}
 	.frame a {
-		pointer-events: auto;
+		/* pointer-events: auto; */
 	}
 	.content {
 		height: 100vh;

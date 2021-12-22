@@ -1,4 +1,5 @@
 import ControlKit from '@brunoimbrizi/controlkit';
+import TweenLite from 'gsap/TweenLite';
 import Stats from 'stats.js';
 
 export default class GUIView {
@@ -7,16 +8,16 @@ export default class GUIView {
 		this.app = app;
 
 		this.particlesHitArea = false;
-		this.particlesRandom = 2;
-		this.particlesDepth = 4;
+		this.particlesRandom = 230;
+		this.particlesDepth = 650;
 		this.particlesSize = 1.5;
 		
 		this.touchRadius = 0.15;
 
 		this.range = [0, 1];
-		this.rangeRandom = [1, 100];
+		this.rangeRandom = [1, 300];
 		this.rangeSize = [0, 3];
-		this.rangeDepth = [1, 200];
+		this.rangeDepth = [1, 1000];
 		this.rangeRadius = [0, 0.5];
 
 		this.initControlKit();
@@ -29,15 +30,19 @@ export default class GUIView {
 		this.controlKit = new ControlKit();
 		this.controlKit.addPanel({ width: 300, enable: false })
 
-		.addGroup({label: 'Touch', enable: true })
+		.addGroup({label: 'Touch', enable: false })
 		.addCanvas({ label: 'trail', height: 64 })
 		.addSlider(this, 'touchRadius', 'rangeRadius', { label: 'radius', onChange: this.onTouchChange.bind(this) })
 		
-		.addGroup({label: 'Particles', enable: true })
+		.addGroup({label: 'Particles', enable: false })
 		// .addCheckbox(this, 'particlesHitArea', { label: 'hit area', onChange: this.onParticlesChange.bind(this) })
 		.addSlider(this, 'particlesRandom', 'rangeRandom', { label: 'random', onChange: this.onParticlesChange.bind(this) })
 		.addSlider(this, 'particlesDepth', 'rangeDepth', { label: 'depth', onChange: this.onParticlesChange.bind(this) })
 		.addSlider(this, 'particlesSize', 'rangeSize', { label: 'size', onChange: this.onParticlesChange.bind(this) })
+
+		.addGroup({label: 'Website Folds', enable: true })
+		.addButton('Fold 1', this.onParticlesFold1.bind(this) )
+		.addButton('Fold 2', this.onParticlesFold2.bind(this) )
 
 		// store reference to canvas
 		const component = this.controlKit.getComponentBy({ label: 'trail' });
@@ -101,6 +106,40 @@ export default class GUIView {
 		this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
 
 		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
+	}
+
+	onParticlesFold1() {
+		if (!this.app.webgl) return;
+		if (!this.app.webgl.particles) return;
+
+		// this.app.webgl.particles.object3D.material.uniforms.uRandom.value = 1;
+		// this.app.webgl.particles.object3D.material.uniforms.uDepth.value = 1000;
+		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
+		let time = 1;
+		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: 1.0 });
+		TweenLite.fromTo(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1.0 }, { value: 1000.0 });
+
+		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
+
+		document.getElementById('textcontainer').style.display = 'block';
+		document.getElementById('mainbody').style.backgroundColor  = 'white';
+	}
+
+	onParticlesFold2() {
+		if (!this.app.webgl) return;
+		if (!this.app.webgl.particles) return;
+
+		// this.app.webgl.particles.object3D.material.uniforms.uRandom.value = 1;
+		// this.app.webgl.particles.object3D.material.uniforms.uDepth.value = 1;
+		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
+		let time = 1;
+		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: 1.0 });
+		TweenLite.fromTo(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1000.0 }, { value: 1.0 });
+
+		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
+
+		document.getElementById('textcontainer').style.display = 'none';
+		document.getElementById('mainbody').style.backgroundColor  = '#111';
 	}
 
 	onPostProcessingChange() {
