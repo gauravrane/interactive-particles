@@ -8,7 +8,7 @@ export default class GUIView {
 		this.app = app;
 
 		this.particlesHitArea = false;
-		this.particlesRandom = 230;
+		this.particlesRandom = -700;
 		this.particlesDepth = 650;
 		this.particlesSize = 1.5;
 		
@@ -116,13 +116,14 @@ export default class GUIView {
 		// this.app.webgl.particles.object3D.material.uniforms.uDepth.value = 1000;
 		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
 		let time = 1;
-		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: 1.0 });
+		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: -700.0 });
 		TweenLite.fromTo(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1.0 }, { value: 1000.0 });
 
 		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
 
 		document.getElementById('textcontainer').style.display = 'block';
-		document.getElementById('mainbody').style.backgroundColor  = 'white';
+		// document.getElementById('mainbody').style.backgroundColor  = 'white';
+		TweenLite.to(document.getElementById('mainbody').style,2,{backgroundColor:'#fff'});
 	}
 
 	onParticlesFold2() {
@@ -132,14 +133,15 @@ export default class GUIView {
 		// this.app.webgl.particles.object3D.material.uniforms.uRandom.value = 1;
 		// this.app.webgl.particles.object3D.material.uniforms.uDepth.value = 1;
 		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
-		let time = 1;
+		let time = 2.5;
 		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: 1.0 });
-		TweenLite.fromTo(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1000.0 }, { value: 1.0 });
+		TweenLite.fromTo(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.0, { value: 1000.0 }, { value: 1.0 });
 
 		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
 
 		document.getElementById('textcontainer').style.display = 'none';
-		document.getElementById('mainbody').style.backgroundColor  = '#111';
+		// document.getElementById('mainbody').style.backgroundColor  = '#111';
+		TweenLite.to(document.getElementById('mainbody').style,2,{backgroundColor:'#111'});
 	}
 
 	onPostProcessingChange() {
