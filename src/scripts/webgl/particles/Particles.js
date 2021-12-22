@@ -177,20 +177,6 @@ export default class Particles {
 		this.addListeners();
 	}
 
-	fold1(time = 0.1)
-	{
-		// TweenLite.fromTo(this.object3D.material.uniforms.uSize, time, { value: 0.1 }, { value: 1.5 });
-		TweenLite.to(this.object3D.material.uniforms.uRandom, time, { value: 1.0 });
-		TweenLite.fromTo(this.object3D.material.uniforms.uDepth, time * 1.5, { value: 1.0 }, { value: 1000.0 });
-	}
-
-	fold2(time = 1)
-	{
-		// TweenLite.fromTo(this.object3D.material.uniforms.uSize, time, { value: 0.1 }, { value: 1.5 });
-		TweenLite.to(this.object3D.material.uniforms.uRandom, time, { value: 1.0 });
-		TweenLite.fromTo(this.object3D.material.uniforms.uDepth, time * 1.5, { value: 1000.0 }, { value: 1.0 });
-	}
-
 	hide(_destroy, time = 0.8) {
 		return new Promise((resolve, reject) => {
 			TweenLite.to(this.object3D.material.uniforms.uRandom, time, { value: 5.0, onComplete: () => {

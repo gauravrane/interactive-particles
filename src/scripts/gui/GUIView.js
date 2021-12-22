@@ -21,6 +21,7 @@ export default class GUIView {
 		this.rangeRadius = [0, 0.5];
 
 		this.initControlKit();
+		this.addwheellistener();
 		// this.initStats();
 
 		// this.disable();
@@ -108,6 +109,41 @@ export default class GUIView {
 		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
 	}
 
+	addwheellistener(){
+		window.addEventListener("wheel", event => {
+			const delta = Math.sign(event.deltaY);
+			if(event.deltaY > 0)
+			{
+				this.onParticlesFold2();
+			}
+			else 
+			{
+				this.onParticlesFold1();
+			}
+			console.info(delta);
+		});
+
+		// let touchstartX = 0
+		// let touchendX = 0;
+		// let slider = document.getElementById('mainbody');
+
+		// this.slider.addEventListener('touchstart', e => {
+		// 	touchstartX = e.changedTouches[0].screenY
+		//   })
+		  
+		// this.slider.addEventListener('touchend', e => {
+		// 	touchendX = e.changedTouches[0].screenY
+		// 	handleGesture()
+		//   })
+		// if (touchendX < touchstartX) this.onParticlesFold1();
+		// if (touchendX > touchstartX) this.onParticlesFold2();
+	}
+
+	removewheellistener(){
+		window.removeEventListener("wheel", event => {
+		});
+	}
+
 	onParticlesFold1() {
 		if (!this.app.webgl) return;
 		if (!this.app.webgl.particles) return;
@@ -117,7 +153,7 @@ export default class GUIView {
 		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
 		let time = 1;
 		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: -700.0 });
-		TweenLite.fromTo(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1.0 }, { value: 1000.0 });
+		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1000.0 });
 
 		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
 
@@ -133,9 +169,9 @@ export default class GUIView {
 		// this.app.webgl.particles.object3D.material.uniforms.uRandom.value = 1;
 		// this.app.webgl.particles.object3D.material.uniforms.uDepth.value = 1;
 		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
-		let time = 2.5;
+		let time = 1.5;
 		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: 1.0 });
-		TweenLite.fromTo(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.0, { value: 1000.0 }, { value: 1.0 });
+		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.0, { value: 1.0 });
 
 		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
 

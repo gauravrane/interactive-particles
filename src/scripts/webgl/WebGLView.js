@@ -12,7 +12,8 @@ export default class WebGLView {
 		this.app = app;
 
 		this.samples = [
-			'images/sample-05.png'
+			'images/sample-05.png',
+			'images/tron.png'
 		];
 
 		this.initThree();
@@ -20,7 +21,7 @@ export default class WebGLView {
 		this.initControls();
 
 		const rnd = ~~(Math.random() * this.samples.length);
-		this.goto(rnd);
+		this.goto(1);
 	}
 
 	initThree() {
