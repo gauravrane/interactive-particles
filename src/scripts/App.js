@@ -66,7 +66,7 @@ export default class App {
 
 	keyup(e) {
 		// g
-		if (e.keyCode == 71) { if (this.gui) this.gui.toggle(); }
+		if (e.keyCode == 72) { if (this.gui) this.gui.toggle(); }
 	}
 
 	click(e) {
