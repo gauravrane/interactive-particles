@@ -114,29 +114,14 @@ export default class GUIView {
 			const delta = Math.sign(event.deltaY);
 			if(event.deltaY > 0)
 			{
-				this.onParticlesFold2();
+				this.onParticlesFold2(1);
 			}
 			else 
 			{
-				this.onParticlesFold1();
+				this.onParticlesFold1(0);
 			}
-			console.info(delta);
+			// console.info(delta);
 		});
-
-		// let touchstartX = 0
-		// let touchendX = 0;
-		// let slider = document.getElementById('mainbody');
-
-		// this.slider.addEventListener('touchstart', e => {
-		// 	touchstartX = e.changedTouches[0].screenY
-		//   })
-		  
-		// this.slider.addEventListener('touchend', e => {
-		// 	touchendX = e.changedTouches[0].screenY
-		// 	handleGesture()
-		//   })
-		// if (touchendX < touchstartX) this.onParticlesFold1();
-		// if (touchendX > touchstartX) this.onParticlesFold2();
 	}
 
 	removewheellistener(){
@@ -144,40 +129,64 @@ export default class GUIView {
 		});
 	}
 
-	onParticlesFold1() {
+	onParticlesFold1(currSample) {
 		if (!this.app.webgl) return;
 		if (!this.app.webgl.particles) return;
+
+		if(this.currSample != 1)
+		{
+			clearTimeout(this.onlytimeout);
+			this.app.webgl.goto(0);
+			this.currSample = 1;
+		}
+		else
+		{
+			return;
+		}
 
 		// this.app.webgl.particles.object3D.material.uniforms.uRandom.value = 1;
 		// this.app.webgl.particles.object3D.material.uniforms.uDepth.value = 1000;
 		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
-		let time = 1;
-		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: -700.0 });
-		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1000.0 });
+		// let time = 1;
+		// TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: -700.0 });
+		// TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.5, { value: 1000.0 });
 
 		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
 
 		document.getElementById('textcontainer').style.display = 'block';
-		// document.getElementById('mainbody').style.backgroundColor  = 'white';
 		TweenLite.to(document.getElementById('mainbody').style,2,{backgroundColor:'#fff'});
 	}
 
-	onParticlesFold2() {
+	onParticlesFold2(currSample) {
 		if (!this.app.webgl) return;
 		if (!this.app.webgl.particles) return;
 
+		if(this.currSample != 0)
+		{
+			this.app.webgl.goto(1);
+			this.currSample = 0;
+
+			this.onlytimeout = setTimeout(() => {
+				let time = 1.5;
+			TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: 1.0 });
+			TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.0, { value: 1.0 });
+			}, 200);
+			
+
+			this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
+
+			document.getElementById('textcontainer').style.display = 'none';
+			TweenLite.to(document.getElementById('mainbody').style,2,{backgroundColor:'#111'});
+		}
+		else
+		{
+			return;
+		}
 		// this.app.webgl.particles.object3D.material.uniforms.uRandom.value = 1;
 		// this.app.webgl.particles.object3D.material.uniforms.uDepth.value = 1;
 		// this.app.webgl.particles.object3D.material.uniforms.uSize.value = this.particlesSize;
-		let time = 1.5;
-		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uRandom, time, { value: 1.0 });
-		TweenLite.to(this.app.webgl.particles.object3D.material.uniforms.uDepth, time * 1.0, { value: 1.0 });
-
-		this.app.webgl.particles.hitArea.material.visible = this.particlesHitArea;
-
-		document.getElementById('textcontainer').style.display = 'none';
-		// document.getElementById('mainbody').style.backgroundColor  = '#111';
-		TweenLite.to(document.getElementById('mainbody').style,2,{backgroundColor:'#111'});
+		
+		
 	}
 
 	onPostProcessingChange() {
